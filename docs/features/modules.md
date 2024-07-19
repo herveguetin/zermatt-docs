@@ -29,6 +29,8 @@ This file is used to declare Zermatt modules and rewrites with their relative pa
 
 **One `zermatt.json` file can declare several modules and rewrites.**
 
+**As in Magento, it is recommanded to namespace module names: `Vendor_Module`.**
+
 ### zermatt-lock.json
 
 The `zermatt-lock.json` is present only in the `web/zermatt` directory of Zermatt themes.
@@ -36,6 +38,8 @@ The `zermatt-lock.json` is present only in the `web/zermatt` directory of Zermat
 As its name suggests, it gathers all modules and rewrites declared in `zermatt.json` files. 
 The target paths match the actual paths in the `pub/static/frontend/...` directories.
 As the Zermatt frontend build also lives there, it will directly load the modules from the Magento-generated static assets.  
+
+The `zermatt-lock.json` should not be changed by hand. 
 
 And, you guessed it, `zermatt-lock.json` **must be regenerated each time a module is added or removed.**
 
@@ -54,29 +58,71 @@ you must run `bin/magento zermatt:lock:dump` manually.
 ## The JS module file
 
 As explained above, the `zermatt.json` file declares a module by a random name and a path to the actual JS file of this module.
+So please make sur to create your JS file where your `zermatt.json` module declaration points to.
 
+This JS file is nothing more than an AlpineJS component:
 
-## Modules
-<a name="modules"></a>
-zermatt-lock.json
-Rewrite + overload
+```js
+// ./modules/welcome.js file of module named "Acme_Welcome"
+export default {
+  name: 'John Doe',
+  greet() {
+    return 'Welcome ' + this.name
+  }
+}
+```
 
-## Variables
-<a name="variables"></a>
-You should not mutate a variable in the JS code.
+## Using the module in .phtml templates
 
-## Forms
+The only thing to do is to use the AlpineJS `x-data` attribute like so:
 
-## Components
+`<div x-data="Zermatt.Module('<moduleName>')"></div>`
 
-## Price
+The rest of the AlpineJS logic is the same.
 
-## Translation
+```html
+<div x-data="Zermatt.Module('Acme_Welcome')">
+    <p>Your name is <span x-text="name"></span></p>
+    <p x-text="greet()"></p>
+</div>
+```
 
-## CLI
+## Rewrite and overload
 
-## zermatt-core npm module
+For better comprehension, we define:
+- "rewrite": the target JS file of a module is changed by another module.
+The new target JS file takes complete precedence over the original one.
+- "overload": a module adds and/or modifies existing properties of another module.
+The unmodified properties are kept in the final overloaded module.
 
-## Zermatt themes
+### Rewrite
 
-## Events
+The `zermatt.json` file declaring the module to rewrite shows:
+
+```js
+{
+  "modules": {
+    "Vendor_Welcome": "./modules/welcome"
+  }
+}
+```
+
+The `zermatt.json` file declaring the actual rewrite must show:
+
+```js
+{
+  "modules": {
+    "Vendor_Welcome": "./path/to/the/new/JS/file"
+  }
+}
+```
+
+**Basically, a rewrite means redeclaring a module by its existing name, 
+and make it point to a new JS file.**
+
+## Summary
+
+- Modules are made of a name and a target file.
+- Those are declared in the `web/zermatt` directories of a theme or a Magento module.
+- The target file is a native AlpineJS component.
+- `x-data="Zermatt.Module('<moduleName>')"` is used to instanciate a module in templates.

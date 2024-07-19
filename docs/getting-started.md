@@ -1,5 +1,12 @@
 # Getting started
 
+## Requirements
+
+- Magento theme architecture
+- AlpineJS
+- ES6 / JS modules
+- PHP (optional)
+
 ## Module install
 Install the Zermatt Magento module.
 

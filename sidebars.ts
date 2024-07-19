@@ -22,7 +22,16 @@ const sidebars: SidebarsConfig = {
             type: 'category',
             label: 'Features',
             items: [
-                'features/modules'
+                'features/themes',
+                'features/modules',
+                'features/variables',
+                'features/translation',
+                'features/money',
+                'features/events',
+                'features/forms',
+                'features/partials',
+                'features/cli',
+                'features/zermatt-core',
             ],
         },
         {
