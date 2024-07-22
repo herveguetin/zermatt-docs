@@ -1,5 +1,7 @@
 # Backend data forwarding
 
+[See Variables documentation](../features/variables).
+
 There are 2 ways to pass backend data to a Zermatt module: with module properties or Zermatt variables.
 
 ## Module properties

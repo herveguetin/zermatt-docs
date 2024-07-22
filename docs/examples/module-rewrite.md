@@ -1,5 +1,7 @@
 # Module rewrite
 
+[See feature documentation](../features/modules).
+
 Open these files from the `/vendor/maddlen/module-zermatt-examples/view/frontend/web/zermatt` directory:
 
 - `zermatt.json`

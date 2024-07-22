@@ -1,3 +1,0 @@
-# Zermatt components
-
-Transmit data
