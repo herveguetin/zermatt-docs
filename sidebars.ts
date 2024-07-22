@@ -32,6 +32,7 @@ const sidebars: SidebarsConfig = {
                 'features/partials',
                 'features/cli',
                 'features/zermatt-core',
+                'features/alpine-plugins',
             ],
         },
         {
