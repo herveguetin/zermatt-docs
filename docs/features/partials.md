@@ -53,14 +53,14 @@ The data is passed as `$data` to the partial. You can access it using native Mag
 Here is the file structure:
 
 ```
-├── templates
-│   ├── product-thumbnail
-│   │   ├── add-to-cart.phtml
-│   │   ├── info.phtml
-│   │   ├── main-content.phtml
-│   │   └── media.phtml
-│   └── product-thumbnail.phtml
-
+Vendor_Module
+   ├── templates
+      ├── product-thumbnail
+      │   ├── add-to-cart.phtml
+      │   ├── info.phtml
+      │   ├── main-content.phtml
+      │   └── media.phtml
+      └── product-thumbnail.phtml
 ```
 
 Here is an example layout XML file content:

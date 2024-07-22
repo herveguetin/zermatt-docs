@@ -39,3 +39,12 @@ Zermatt.Event.on(['some:event', 'some:other_event'], (events) => {
 ```
 
 Note that the callback receives all dispatched events as argument.
+
+## Core Zermatt events
+
+- `zermatt:kickoff`. When the frontend Zermatt stack is first started.
+- `zermatt:translation:init`. When the translation layer is ready.
+- `zermatt:module:init`. When modules are loaded in Zermatt.
+- `zermatt:form:key:init`. When Zermatt has finished fetching the form key from the backend.
+- `zermatt:init`. Before the AlpineJS app is started (`Alpine.start()`)
+- `zermatt:ready`. When Zermatt is ready.

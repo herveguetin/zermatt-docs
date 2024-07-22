@@ -30,6 +30,7 @@ const sidebars: SidebarsConfig = {
                 'features/events',
                 'features/forms',
                 'features/partials',
+                'features/utilities',
                 'features/cli',
                 'features/zermatt-core',
                 'features/alpine-plugins',
