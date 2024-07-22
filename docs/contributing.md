@@ -1,1 +1,1 @@
-# Contributing
+# Issues & contributions
