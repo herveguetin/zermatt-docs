@@ -43,3 +43,4 @@ So, please avoid doing: `Zermatt.Variables.customer.name = 'Bad Idea'`.
 - Literals (string, int, float, arrays)
 - Magento objects inheriting `\Magento\Framework\DataObject`
 - Magento collections inheriting `\Magento\Framework\Data\Collection`
+- Magento API objects inheriting `\Magento\Framework\Api\AbstractSimpleObject`

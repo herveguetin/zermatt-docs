@@ -53,8 +53,6 @@ So, if you install a Magento module that provides Zermatt modules, the `zermatt-
 But, if you create a new module in an existing theme or Magento module, 
 you must run `bin/magento zermatt:lock:dump` manually.
 
-**LOCK FILE DIFFERENT SELON THEME: les zermatt.json des themes sont différents => les locks sont-ils bien différents aussi**
-
 ## The JS module file
 
 As explained above, the `zermatt.json` file declares a module by a random name and a path to the actual JS file of this module.
@@ -87,17 +85,21 @@ The rest of the AlpineJS logic is the same.
 </div>
 ```
 
-## Rewrite and overload
+## Rewrite
 
 For better comprehension, we define:
-- "rewrite": the target JS file of a module is changed by another module.
+- "hard rewrite": the target JS file of a module is changed by another module.
 The new target JS file takes complete precedence over the original one.
-- "overload": a module adds and/or modifies existing properties of another module.
+- "soft rewrite": a module adds and/or modifies existing properties of another module.
 The unmodified properties are kept in the final overloaded module.
 
-### Rewrite
+**Caution: rewrites and overload are implemented in a different way for Magento modules and themes. This section only covers rewrites for Magento modules living in `app/code` or `vendor`.**
 
-The `zermatt.json` file declaring the module to rewrite shows:
+**Please see "Theme inheritance" below for more information about rewriting a parent theme module.**
+
+### Hard rewrite
+
+The `zermatt.json` file declaring the module to be rewritten (in `app/code` or `vendor`) shows:
 
 ```js
 {
@@ -107,7 +109,7 @@ The `zermatt.json` file declaring the module to rewrite shows:
 }
 ```
 
-The `zermatt.json` file declaring the actual rewrite must show:
+The `zermatt.json` file declaring the actual rewrite (in the theme) must show:
 
 ```js
 {
@@ -117,8 +119,129 @@ The `zermatt.json` file declaring the actual rewrite must show:
 }
 ```
 
-**Basically, a rewrite means redeclaring a module by its existing name, 
+**Basically, a hard rewrite means redeclaring a module by its existing name, 
 and make it point to a new JS file.**
+
+### Soft rewrite
+
+Soft rewrite allows rewriting only some properties of an existing module. Soft rewrite also allows adding new properties to existing modules.
+
+For example, the `zermatt.json` file declaring the module to be rewritten (in `app/code` or `vendor`) shows:
+
+```js
+{
+  "modules": {
+    "Vendor_Welcome": "./modules/welcome"
+  }
+}
+```
+
+The `Vendor_Welcome::/modules/welcome.js` file shows:
+
+```js
+export default {
+  name: 'John Doe',
+  greet() {
+    return 'Welcome ' + this.name
+  }
+}
+```
+
+The `zermatt.json` file declaring the actual rewrite (in the theme) must show:
+
+```js
+{
+  "rewrites": {
+    "Vendor_Welcome": "./path/to/the/rewrite/JS/file"
+  }
+}
+```
+
+Now, the rewrite JS file in the theme could be:
+
+```js
+export default {
+  name: 'John Smith'
+}
+```
+
+With a template using the `Vendor_Welcome` module:
+
+```html
+<div x-data="Zermatt.Module('Vendor_Welcome')">
+    <span x-text="greet()"></span>
+</div>
+```
+
+Result: `Welcome John Smith`.
+
+## Theme inheritance
+
+Native Magento theme fallback system applies to Zermatt.
+
+Therefore, you can develop a main theme which includes the core of your logic and create childs of this theme.
+As in Magento, placing a file in a child theme with the same path and name as the ones from its parent will make the child file take precedence.
+
+Parent theme:
+
+`app/design/frontend/Vendor/theme/web/zermatt/path/to/some-module.js`
+
+Child theme :
+
+`app/design/frontend/Acme/child/web/zermatt/path/to/some-module.js`
+
+This will completely rewrite files from the parent theme.
+
+**This also means that if the child theme is Zermatt-enabled with `zermatt.json` and `zermatt-lock.json` files, those files will take precedence over the parent theme ones. 
+All modules from the parent theme are therefore unavailable in the child theme.**
+
+In other words: as soon as you are working on a child theme which is Zermatt-enabled, you need to redeclare any module from the parent theme that you also wish to use in the child theme.
+
+In such case, the `zermatt.json` file of the child theme looks like:
+
+```js
+{
+  "modules": {
+    "ParentTheme_Module": "./same/path/as/parent/file" // DO NOT CREATE THIS FILE IN THE CHILD THEME
+  }
+}
+```
+
+**Do not copy/paste the JS file of the parent path to the child theme if you do not intend to change its logic / properties.**
+
+Native Magento fallback system will add the parent theme JS file to the child files during static assets generation.
+
+### Hard rewrite
+
+Hard rewrite in theme inheritance works the same as in Magento modules.
+
+```js
+{
+  "modules": {
+    "ParentTheme_Module": "./same/path/as/parent/file" // YOU MUST CREATE THIS FILE IN THE CHILD THEME
+  }
+}
+```
+
+During static assets generation, native Magento fallback system will use the child JS file instead of the parent.
+
+### Soft rewrite
+
+In order to do a soft rewrite of a module living in a parent theme, the parent file must be available in the child theme. It must therefore be added to the `zermatt.json` file of the child theme.
+
+It is also required to declare a rewrite where the name of the file must not be the same as the parent file.
+
+```js
+{
+  "modules": {
+    "ParentTheme_Module": "./same/path/as/parent/file" // DO NOT CREATE THIS FILE IN THE CHILD THEME
+  },
+  "rewrites": {
+    "ParentTheme_Module": "./same/path/as/parent/file-REWRITE" // ... File with a different name
+  } 
+}
+```
+
 
 ## Summary
 
@@ -126,3 +249,27 @@ and make it point to a new JS file.**
 - Those are declared in the `web/zermatt` directories of a theme or a Magento module.
 - The target file is a native AlpineJS component.
 - `x-data="Zermatt.Module('<moduleName>')"` is used to instanciate a module in templates.
+- Modules living in Magento modules are rewritten differently than the ones living in themes.
+
+### Complete zermatt.json file
+
+Commented example of a complete `zermatt.json`:
+
+```js
+{
+  "modules": {
+    "Acme_Module": "./modules/file" // New module declaration
+    
+    "Vendor_Module": "./same/path/as/module/file" // Hard rewrite of a module living in a Magento module
+    
+    "ParentTheme_FirstModule": "./same/path/as/parent/file" // In child theme, if file **does not** exist => use module from parent theme 
+    "ParentTheme_SecondModule": "./same/path/as/parent/file" // In child theme, if file **does** exist => hard rewrite
+    "ParentTheme_ThirdModule": "./same/path/as/parent/file" // In child theme, file **does not** exist in child...
+  },
+  "rewrites": {
+    "ParentTheme_ThirdModule": "./same/path/as/parent/file-REWRITE" // ... but a soft rewrite exists in child in a file that has a different name
+
+    "Vendor_Module": "./modules/file" // Soft rewrite of a module living in a Magento module
+  }
+}
+```

@@ -16,6 +16,8 @@
 3. This build is added to the `<head>` of the layout.
 4. The code in the `.phtml` files can use the `Zermatt` global object. 
 
+A JS object named `Zermatt.Event` allows pub/sub within Zermatt.
+
 In addition, Zermatt offers a way to pass backend data to the frontend thru the `Zermatt.Variables` JS object.
 
 ## Data Management

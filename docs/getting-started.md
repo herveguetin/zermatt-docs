@@ -6,6 +6,7 @@
 - AlpineJS
 - ES6 / JS modules
 - PHP (optional)
+- NodeJS with npm
 
 ## Module install
 Install the Zermatt Magento module.
