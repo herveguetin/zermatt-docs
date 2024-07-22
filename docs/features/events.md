@@ -18,27 +18,37 @@ Zermatt.Event.dispatch('some:event', {key: value})
 
 ## Listen to events
 
-Most simple use:
-
+This will trigger the callback each time the event is emitted:
 ```js
-Zermatt.Event.on('some:event', () => console.log('Some event happened')
+Zermatt.Event.on('some:event', () => console.log('Some event happened'))
+```
+
+This will trigger the callback only once:
+```js
+Zermatt.Event.once('some:event', () => console.log('Some event happened'))
 ```
 
 Retrieve the dispatched event:
 
 ```js
-Zermatt.Event.on('some:event', (event) => console.log(event)
+Zermatt.Event.on('some:event', (event) => console.log(event))
 ```
 
 Wait for several events:
 
 ```js
-Zermatt.Event.on(['some:event', 'some:other_event'], (events) => {
+Zermatt.Event.on(['some:event', 'some:other_event'], (event) => {
+  console.log(event)
+})
+
+Zermatt.Event.once(['some:event', 'some:other_event'], (events) => {
   events.map(event => console.log(event))
 })
 ```
 
-Note that the callback receives all dispatched events as argument.
+Note that:
+- when using `on`, the callback receives the last dispatched event as argument.
+- when using `once`, the callback receives all dispatched events as argument.
 
 ## Core Zermatt events
 

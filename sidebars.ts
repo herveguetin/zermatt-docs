@@ -43,7 +43,12 @@ const sidebars: SidebarsConfig = {
                 'examples/zermatt-examples',
                 'examples/module-rewrite',
                 'examples/passing-data',
-                'examples/using-partials'
+                'examples/using-partials',
+                'examples/price',
+                'examples/translate',
+                'examples/knockout',
+                'examples/bind',
+                'examples/form',
             ],
         },
         'deployment',

@@ -29,7 +29,7 @@ import anchor from '@alpinejs/anchor'
 import resize from '@alpinejs/resize'
 
 // Use AlpineJS plugins on Zermatt init.
-Zermatt.Event.on('zermatt:init', () => Alpine.plugin(anchor, resize))
+Zermatt.Event.once('zermatt:init', () => Alpine.plugin(anchor, resize))
 
 Zermatt.init(Config)
 
