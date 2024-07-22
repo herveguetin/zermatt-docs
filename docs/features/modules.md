@@ -246,7 +246,7 @@ It is also required to declare a rewrite where the name of the file must not be 
 ## Summary
 
 - Modules are made of a name and a target file.
-- Those are declared in the `web/zermatt` directories of a theme or a Magento module.
+- Those are declared in the `web/zermatt` directory of a theme or a Magento module.
 - The target file is a native AlpineJS component.
 - `x-data="Zermatt.Module('<moduleName>')"` is used to instanciate a module in templates.
 - Modules living in Magento modules are rewritten differently than the ones living in themes.
