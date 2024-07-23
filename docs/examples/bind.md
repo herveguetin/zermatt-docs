@@ -1,4 +1,4 @@
-# Bind
+# Zermatt in vendor templates (Alpine.bind)
 
 [Alpine.bind](https://alpinejs.dev/globals/alpine-bind) has the ability to programmatically attach an AlpineJS component to existing DOM elements.
 

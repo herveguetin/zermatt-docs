@@ -1,4 +1,4 @@
-# Zermatt partials
+# Partials
 
 [See feature documentation](../features/partials).
 

@@ -1,4 +1,4 @@
-# Knockout
+# KnockoutJS communication
 
 Here is how to make Zermatt talk with Knockout.
 

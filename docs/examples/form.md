@@ -1,6 +1,6 @@
-# Form
+# Precognitive form
 
-[See feature documentation](../features/form).
+[See feature documentation](../features/forms).
 
 Here is an example of an implementation of `Zermatt_Form` (based on [Laravel Precognition](https://laravel.com/docs/precognition)).
 

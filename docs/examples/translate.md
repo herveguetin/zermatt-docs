@@ -1,4 +1,4 @@
-# Translate
+# Translations
 
 [See feature documentation](../features/translation).
 

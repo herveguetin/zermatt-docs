@@ -32,11 +32,7 @@ If your theme is located in `app/design/frontend/Package/theme`, then run:
 
 Example: `cd app/design/frontend/Package/theme/web/zermatt`
 
-2 • Install npm packages
-
-`npm install`
-
-3 • Start the dev mode
+2 • Start the dev mode
 
 `npm run dev`
 

@@ -6,7 +6,7 @@ As stated on the Lavarel website:
 
 > Laravel Precognition allows you to anticipate the outcome of a future HTTP request. One of the primary use cases of Precognition is the ability to provide "live" validation for your frontend JavaScript application without having to duplicate your application's backend validation rules.
 
-This is especially useful for form validation and also allows great user experience by providing (optional) live validation on each input change. The user gets instant error notification when filling a field the wrong way.
+This is especially useful for form validation and allows great user experience by providing (optional) live validation on each input change. The user gets instant error notification when filling a field the wrong way.
 
 ## Implementation
 
@@ -154,4 +154,4 @@ In such case, just pass the callback to the `Zermatt_Form` module with its `onSu
 </div>
 ```
 
-**Note: as the page is not reloaded, the native Magento success message will still appear on next page reload. This is why it is recommanded to return `null` in the validation controller `getSuccessMessage()` method.** 
+**Note: as the page is not reloaded, the native Magento success message will still appear on next page reload. This is why it is recommanded to return `null` in the validation controller `getSuccessMessage()` method when you are avoiding redirection.** 

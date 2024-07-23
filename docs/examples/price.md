@@ -1,4 +1,4 @@
-# Price
+# Price formatting
 
 [See feature documentation](../features/money).
 
