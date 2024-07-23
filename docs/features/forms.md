@@ -1,6 +1,6 @@
 # Forms
 
-Forms in Zermatt are heavily inspired from [Laravel Precognition](https://laravel.com/docs/precognition).
+Forms in Zermatt are using [Laravel Precognition](https://laravel.com/docs/precognition). We invite you to read the official documentation for a better understanding of the underlying code.
 
 As stated on the Lavarel website:
 
@@ -127,7 +127,7 @@ Here is a commented example of a phtml template using the `Zermatt_Form` module:
 
 You may want to avoid the user being redirected when the form is successgully submitted.
 
-In such case, just pass the callback to the `Zermatt_Form` module.
+In such case, just pass the callback to the `Zermatt_Form` module with its `onSuccess` property.
 
 ```js
 // Some logic to display a custom success message.
