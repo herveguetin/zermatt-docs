@@ -2,11 +2,12 @@
 
 ## Requirements
 
+Basic knowledge of:
+
 - Magento theme architecture
 - AlpineJS
-- ES6 / JS modules
+- ES6, npm, JS modules
 - PHP (optional)
-- NodeJS with npm
 
 ## Module install
 Install the Zermatt Magento module.
