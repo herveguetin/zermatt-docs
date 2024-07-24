@@ -53,7 +53,8 @@ const sidebars: SidebarsConfig = {
         },
         'deployment',
         'update',
-        'contributing'
+        'contributing',
+        'release-notes'
     ],
 };
 
