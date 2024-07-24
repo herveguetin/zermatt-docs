@@ -16,11 +16,13 @@ Dumps the `zermatt-lock.json` files.
 
 ## zermatt:build
 
-Builds all Zermatt app files in all Zermatt-enabled themes:
+Builds all Zermatt JS files in one or all Zermatt-enabled themes:
 
 - installs npm dependencies.
 - makes the npm build.
 
-This command is useful in a deployment context.
+Usage: `zermatt:build [<targetThemeCode>]`.
 
-[Read more about deploying Zermatt](../deployment)
+If the optional `targetThemeCode` (Package/theme) is provided, Zermatt builds only this theme. Otherwise, all themes are built. 
+
+This command is useful in a deployment context. [Read more about deploying Zermatt](../deployment).
